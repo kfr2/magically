@@ -1,0 +1,66 @@
+Kevin Richardson <kevin@magically.us>
+Last update:  2011-Nov-14 10:00am EST
+
+infosets
+--------
+* id integer primary key autoincrement
+* code varchar(3)
+* name varchar(150)
+  * create index [idx_sets_code] on set(code)
+
+infocards
+---------
+* id integer primary key autoincrement
+* name varchar(150)
+* manaCost varchar(25)
+* type varchar(50)
+* pt varchar(20)
+* cardText text
+  * create index [idx_cards_name] on cards(name)
+
+infocardlines
+--------------
+* id integer primary key autoincrement
+* cardId integer
+* setId integer
+  * create index [idx_cardlines_cardId] on infoCardLines(cardId)
+
+
+pricealerts
+-----------
+* id integer primary key autoincrement
+* email text
+* cardId integer
+* foil boolean
+* priceDirection boolean
+* price float
+* dateAdded integer (unix timestamp)
+
+searchlog
+---------
+* id integer primary key autoincrement
+* cardId integer (fk => cardnames.id)
+* ip (varchar 15)
+* agent (varchar 12 -- browser/magicallyapp)
+* timestamp integer (unix timestamp)
+
+cardnames
+----------
+* id integer primary key autoincrement
+* name varchar(150)
+  * create index [idx_names_name] on cardNames(name)
+
+cardprices
+----------
+* id integer primary key autoincrement
+* cardId integer
+* price decimal(6,2)
+* stddev decimal(6,2)
+* average decimal(6,2)
+* high decimal(6,2)
+* low decimal(6,2)
+* change decimal(6,2)
+* rawN integer 
+* timestamp integer (timestamp)
+* foil boolean
+  * create index [idx_cards_cardid] on cards(cardId)
